@@ -1,0 +1,12 @@
+
+{ 
+    crc :  4185929431281424319  , 
+    ccp_crc :  0  , 
+    cmdline : " -wto 40899feb777049c0bb9fafde4b1923e5 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot n_bit_alu_tb_behav xil_defaultlib.n_bit_alu_tb xil_defaultlib.glbl" , 
+    buildDate : "Jun 14 2018" , 
+    buildTime : "20:07:38" , 
+    linkCmd : "/usr/bin/gcc -Wa,-W  -O -fPIC  -m64  -Wl,--unresolved-symbols=ignore-all  -o \"xsim.dir/n_bit_alu_tb_behav/xsimk\"   \"xsim.dir/n_bit_alu_tb_behav/obj/xsim_0.lnx64.o\" \"xsim.dir/n_bit_alu_tb_behav/obj/xsim_1.lnx64.o\" \"/home/prajuval/Downloads/Vivado/2018.2/lib/lnx64.o/librdi_simulator_kernel.so\"  \"/home/prajuval/Downloads/Vivado/2018.2/lib/lnx64.o/librdi_simbridge_kernel.so\"" , 
+    aggregate_nets : 
+    [ 
+    ] 
+} 

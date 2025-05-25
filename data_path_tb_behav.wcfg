@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="data_path_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="data_path_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="925416666fs"></ZoomStartTime>
+      <ZoomEndTime time="1014916667fs"></ZoomEndTime>
+      <Cursor1Time time="1000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="134"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="9" />
+   <wvobject type="logic" fp_name="/data_path_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/data_path_tb/pc_reset">
+      <obj_property name="ElementShortName">pc_reset</obj_property>
+      <obj_property name="ObjectShortName">pc_reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/data_path_tb/pc_write">
+      <obj_property name="ElementShortName">pc_write</obj_property>
+      <obj_property name="ObjectShortName">pc_write</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb/dut/areg_inst/qreg_a">
+      <obj_property name="ElementShortName">qreg_a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">qreg_a[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/data_path_tb/mem_write">
+      <obj_property name="ElementShortName">mem_write</obj_property>
+      <obj_property name="ObjectShortName">mem_write</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb/instr_data_out">
+      <obj_property name="ElementShortName">instr_data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instr_data_out[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb/dut/regfile_inst/read_data1">
+      <obj_property name="ElementShortName">read_data1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">read_data1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb/dut/ir_inst/qreg">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">qreg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">qreg[31:0]</obj_property>
+      <obj_property name="label">instr</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb/alu_control">
+      <obj_property name="ElementShortName">alu_control[4:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_control[4:0]</obj_property>
+   </wvobject>
+</wave_config>
