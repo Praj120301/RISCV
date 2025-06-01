@@ -57,6 +57,12 @@ module instr_data_mem(input logic clk,
                             RAM[5] = 8'hA4;
                             RAM[6] = 8'h64;
                             RAM[7] = 8'h00;
+                            
+                            //rest for now are zero
+                            RAM[8]=8'h00;
+                            RAM[9]=8'h00;
+                            RAM[10]=8'h00;
+                            RAM[11]=8'H00;
                       end
                       
 endmodule

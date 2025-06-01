@@ -32,7 +32,7 @@ module regfile #(parameter data_width=32,addr_width=5)
                output logic [data_width-1:0] read_data2               
                );
                logic [31:0] mem[0:(2**addr_width)-1];
-               always_ff @(posedge clk)
+               always_ff @(negedge clk)
                begin
                  if(we)
                  begin
