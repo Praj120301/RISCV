@@ -34,7 +34,7 @@ module data_path_tb_try_2();
                  
                   data_path dut1 (.*);
                   initial
-                      begin clk=0;
+                      begin clk=1'b0;
                   end
                       always #5 clk = ~clk;
                   initial 
@@ -45,19 +45,21 @@ module data_path_tb_try_2();
                  
                   initial begin
                   pc_reset=1'b1;
-                  @(negedge clk);//fetch
+                  @(negedge  clk);//fetch//10
                   pc_reset=1'b0;
                   ir_write=1'b1;
                   adr_src=0;
-                  @(negedge clk);//do nothing decode
-                  ir_write=1'b0;
-                  @(negedge clk);//mem addr or reg read//exec
                   immsrc=2'b00;
-                  alu_control=2'b00010;
-                  @(negedge clk);
+                  @(negedge clk);//do nothing decode//20
+                  ir_write=1'b0;
+                  
+                  @(negedge clk);//mem addr or reg read//exec//30
+                  
+                  alu_control=5'b00010;
+                  @(negedge clk);//40
                   result_src=2'b00;
                   adr_src=1;
-                  @(negedge clk);//write back
+                  @(negedge  clk);//write back//50
                   result_src=2'b01;
                   reg_write=1'b1;
                   @(negedge clk)

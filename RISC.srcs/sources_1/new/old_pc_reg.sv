@@ -23,7 +23,7 @@
 module old_pc_reg(input logic clk,
                                         input logic enable,
                                         input logic [6:0] d,
-                                        input logic [6:0] q  );
+                                        output logic [6:0] q  );
                                         
                                         logic [6:0] qreg,qnext;
                                         

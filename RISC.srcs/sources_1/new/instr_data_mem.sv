@@ -54,8 +54,8 @@ module instr_data_mem(input logic clk,
                             
                             //sw x6,8(x9)   - S type   0x0064A423 
                             RAM[4] = 8'h23;
-                            RAM[5] = 8'hA4;
-                            RAM[6] = 8'h64;
+                            RAM[5] = 8'h24;
+                            RAM[6] = 8'h72;
                             RAM[7] = 8'h00;
                             
                             //rest for now are zero

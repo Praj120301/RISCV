@@ -32,7 +32,7 @@ module mux_3x1_nbit #(parameter n=32)
             2'b00:  out1=in0;
             2'b01:  out1=in1;
             2'b10:  out1=in2;
-            default: out1=2'bxx;
+            default: out1 = {n{1'bx}};
             endcase
        end
 endmodule
