@@ -28,7 +28,7 @@ module instr_data_mem(input logic clk,
                       
                       logic [7:0] RAM [0:127];//byte addressable
                       
-                      always_ff @(posedge clk)
+                      always_ff @(negedge clk)
                       begin
                         if(we)
                         begin
@@ -52,9 +52,9 @@ module instr_data_mem(input logic clk,
                             RAM[2] = 8'hB4;
                             RAM[3] = 8'hFF;
                             
-                            //sw x6,8(x9)   - S type   0x0064A423 
+                            //sw x7,4(x4)   - S type   0x00722223
                             RAM[4] = 8'h23;
-                            RAM[5] = 8'h24;
+                            RAM[5] = 8'h22;
                             RAM[6] = 8'h72;
                             RAM[7] = 8'h00;
                             

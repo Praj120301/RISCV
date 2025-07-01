@@ -51,7 +51,7 @@ module regfile #(parameter data_width=32,addr_width=5)
                    mem[4]  = 32'd4;
                    mem[5]  = 32'd5;
                    mem[6]  = 32'd6;
-                   mem[7]  = 32'd7;
+                   mem[7]  = 32'b00000000110001011111001010110011;
                    mem[8]  = 32'd8;
                    mem[9]  = 32'd9;
                    mem[10] = 32'd10;

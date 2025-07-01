@@ -1,27 +1,7 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 19.05.2025 02:19:40
-// Design Name: 
-// Module Name: data_path
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module data_path(input logic clk,
-                 input logic pc_reset,
+                 input logic pc_reset,//control
                  input logic pc_write,//control
                  input logic mem_write,//control
                  input logic ir_write,//control
@@ -31,7 +11,10 @@ module data_path(input logic clk,
                  input logic adr_src,//control
                  input logic [1:0] result_src,//control
                  input logic [1:0] ALUsrcB,//control
-                 input logic [1:0] ALUsrcA//control
+                 input logic [1:0] ALUsrcA,//control
+                 output logic [6:0] opcode, //instr
+                 output logic [2:0] funct3, //instr
+                 output logic funct7_5      //instr
                  );
                  
                  logic [6:0]pc_out;
@@ -53,9 +36,10 @@ module data_path(input logic clk,
                  logic [31:0] mux_src_a_out;
                  logic [6:0] old_pc_out;
                  logic [6:0] pc_in;
+                 
                  assign alu_select = {alu_control[1],alu_control[0]};
                  assign ir_in=mem_out;
-                 assign pc_in=result_out[6:0];
+                 assign pc_in={result_out[6:0]};
                   
                  pc pc_ins(.clk(clk), .reset(pc_reset),.enable(pc_write), .d(pc_in),.q(pc_out));//correct//
                  memory_mux_2x1 mem_mux_inst( .a(pc_out),.b(result_out),.sel(adr_src),.out(mem_mux_out));//correct//
@@ -71,5 +55,10 @@ module data_path(input logic clk,
                  mux_3x1_nbit src_b_mux(.in0(a_out2),.in1(immout),.in2(32'd4),.select(ALUsrcB),.out1(mux_src_b_out)); 
                  mux_3x1_nbit src_a_mux(.in0({25'b0,pc_out}),.in1({25'b0,old_pc_out}),.in2(a_out1),.select(ALUsrcA),.out1(mux_src_a_out));
                  old_pc_reg old_pc_reg_inst(.clk(clk),.enable(ir_write),.d(pc_out),.q(old_pc_out));
+                 
+                 //output of datapath
+                 assign opcode={instr[6:0]};
+                 assign funct3={instr[14:12]};
+                 assign funct7_5=instr[30];
                  
 endmodule

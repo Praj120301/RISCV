@@ -3,61 +3,93 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="data_path_tb_behav.wdb" id="1">
+      <db_ref path="data_path_tb_try_4_behav.wdb" id="1">
          <top_modules>
-            <top_module name="data_path_tb" />
+            <top_module name="data_path_tb_try_4" />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="947083333fs"></ZoomStartTime>
-      <ZoomEndTime time="1010583334fs"></ZoomEndTime>
-      <Cursor1Time time="1000000000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="132744785fs"></ZoomEndTime>
+      <Cursor1Time time="150000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="134"></ValueColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="10" />
-   <wvobject type="logic" fp_name="/data_path_tb/clk">
+   <WVObjectSize size="14" />
+   <wave_markers>
+      <marker label="" time="25000000" />
+      <marker label="" time="35000000" />
+      <marker label="" time="45000000" />
+      <marker label="" time="15000000" />
+      <marker label="" time="85000000" />
+      <marker label="" time="95000000" />
+      <marker label="" time="55000000" />
+      <marker label="" time="75000000" />
+      <marker label="" time="65000000" />
+      <marker label="" time="105000000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/data_path_tb_try_4/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/data_path_tb/pc_reset">
-      <obj_property name="ElementShortName">pc_reset</obj_property>
-      <obj_property name="ObjectShortName">pc_reset</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/ir_in">
+      <obj_property name="ElementShortName">ir_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ir_in[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/data_path_tb/pc_write">
-      <obj_property name="ElementShortName">pc_write</obj_property>
-      <obj_property name="ObjectShortName">pc_write</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/instr">
+      <obj_property name="ElementShortName">instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/data_path_tb/mem_write">
-      <obj_property name="ElementShortName">mem_write</obj_property>
-      <obj_property name="ObjectShortName">mem_write</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/pc_out">
+      <obj_property name="ElementShortName">pc_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_out[6:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/data_path_tb/instr_data_out">
-      <obj_property name="ElementShortName">instr_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">instr_data_out[31:0]</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/old_pc_reg_inst/q">
+      <obj_property name="ElementShortName">q[6:0]</obj_property>
+      <obj_property name="ObjectShortName">q[6:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/data_path_tb/ir_write">
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/mem_mux_out">
+      <obj_property name="ElementShortName">mem_mux_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_mux_out[6:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/mem_out">
+      <obj_property name="ElementShortName">mem_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_out[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/data_path_tb_try_4/dut4/ir_write">
       <obj_property name="ElementShortName">ir_write</obj_property>
       <obj_property name="ObjectShortName">ir_write</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/data_path_tb/reg_write">
-      <obj_property name="ElementShortName">reg_write</obj_property>
-      <obj_property name="ObjectShortName">reg_write</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/old_pc_out">
+      <obj_property name="ElementShortName">old_pc_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">old_pc_out[6:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/data_path_tb/immsrc">
-      <obj_property name="ElementShortName">immsrc[1:0]</obj_property>
-      <obj_property name="ObjectShortName">immsrc[1:0]</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/a_out1">
+      <obj_property name="ElementShortName">a_out1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">a_out1[31:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/data_path_tb/alu_control">
-      <obj_property name="ElementShortName">alu_control[4:0]</obj_property>
-      <obj_property name="ObjectShortName">alu_control[4:0]</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/a_out2">
+      <obj_property name="ElementShortName">a_out2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">a_out2[31:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/data_path_tb/adr_src">
-      <obj_property name="ElementShortName">adr_src</obj_property>
-      <obj_property name="ObjectShortName">adr_src</obj_property>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/immout">
+      <obj_property name="ElementShortName">immout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">immout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/alu_out">
+      <obj_property name="ElementShortName">alu_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/data_path_tb_try_4/dut4/instr_data_mem_inst/RAM">
+      <obj_property name="ElementShortName">RAM[0:127][7:0]</obj_property>
+      <obj_property name="ObjectShortName">RAM[0:127][7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
 </wave_config>

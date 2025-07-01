@@ -24,7 +24,7 @@ module pc #(parameter n=32)
                             ( input logic clk,
                              input logic reset,
                              input logic enable,
-                             input logic  [n-1:0] d,
+                             input logic  [6:0] d,
                              output logic [6:0] q);//data memory only takes seven bites we will clip the incoming data
                              logic [6:0] qreg,qnext;
                              always_ff @(posedge clk,posedge reset)//async reset

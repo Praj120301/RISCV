@@ -100,7 +100,7 @@ begin
         result_src=2'b00;
         adr_src=1'b1;
         mem_write=1'b1;
-     @(posedge clk)
+     @(posedge clk)//105-115j7u
         mem_write=1'b0;   
         adr_src=1'b0;
 end
