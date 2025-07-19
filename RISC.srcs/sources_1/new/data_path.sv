@@ -14,7 +14,8 @@ module data_path(input logic clk,
                  input logic [1:0] ALUsrcA,//control
                  output logic [6:0] opcode, //instr
                  output logic [2:0] funct3, //instr
-                 output logic funct7_5      //instr
+                 output logic funct7_5,      //instr
+                 output logic zero
                  );
                  
                  logic [6:0]pc_out;
@@ -36,6 +37,7 @@ module data_path(input logic clk,
                  logic [31:0] mux_src_a_out;
                  logic [6:0] old_pc_out;
                  logic [6:0] pc_in;
+                
                  
                  assign alu_select = {alu_control[1],alu_control[0]};
                  assign ir_in=mem_out;
@@ -48,7 +50,7 @@ module data_path(input logic clk,
                  regfile regfile_inst(.clk(clk),.we(reg_write),.read_addr1(instr[19:15]),.read_addr2(instr[24:20]),.write_addr(instr[11:7]),.write_data(result_out),.read_data1(regout1),.read_data2(regout2) );//correct//
                  extender extender_inst(.instr(instr[31:7]),.immsrc(immsrc),.immnext(immout));//correct//  
                  Areg areg_inst (.clk(clk),.d_a(regout1),.d_b(regout2),.q_a(a_out1),.q_b(a_out2));//correct//
-                 n_bit_alu #(.n(32)) alu_inst (.a(mux_src_a_out), .b(mux_src_b_out), .cin(alu_control[2]), .ainv(alu_control[4]), .binv(alu_control[3]), .select(alu_select), .result(alu_result), .cout(), .zero(), .overflow(), .negative(), .greater());//correct
+                 n_bit_alu #(.n(32)) alu_inst (.a(mux_src_a_out), .b(mux_src_b_out), .cin(alu_control[2]), .ainv(alu_control[4]), .binv(alu_control[3]), .select(alu_select), .result(alu_result), .cout(), .zero(zero), .overflow(), .negative(), .greater());//correct
                  n_bit_register alu_reg (.clk(clk),.d(alu_result),.q(alu_out));//correct//
                  n_bit_register data_reg_inst (.clk(clk),.d(mem_out),.q(data_out));//correct//
                  mux_3x1_nbit result_mux_inst(.in0(alu_out),.in1(data_out),.in2(alu_result),.select(result_src),.out1(result_out)) ;  //correct//

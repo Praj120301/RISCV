@@ -25,6 +25,7 @@ module control_unit(input logic clk,
                     input logic [6:0] opcode,
                     input logic [2:0] funct3,
                     input logic funct7_5,
+                    input logic zero,
                     output logic pc_reset,
                     output logic pc_write,
                     output logic mem_write,
@@ -38,11 +39,14 @@ module control_unit(input logic clk,
                     output logic [1:0] immsrc
                     );
                     logic [1:0] alu_op;
+                    logic branch;
+                    logic pc_update;
                      main_fsm main_fsm_inst(.clk(clk),
                               .reset(reset),
                               .opcode(opcode),
                               .pc_reset(pc_reset),
-                              .pc_write(pc_write),
+                              .branch(branch),
+                              .pc_update(pc_update),
                               .mem_write(mem_write),
                               .ir_write(ir_write),
                               .reg_write(reg_write),
@@ -54,4 +58,6 @@ module control_unit(input logic clk,
                                );                                                            
                       alu_decoder alu_decoder_inst(.alu_op(alu_op),.funct3(funct3),.op5(opcode[5]),.funct7_5(funct7_5),.alu_control(alu_control));
                       immediate_src immediate_src_inst(.opcode(opcode),.immsrc(immsrc));
+                      assign pc_write=((branch&zero)|pc_update);
+                      
 endmodule

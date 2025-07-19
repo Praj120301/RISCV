@@ -58,11 +58,19 @@ module instr_data_mem(input logic clk,
                             RAM[6] = 8'h72;
                             RAM[7] = 8'h00;
                             
-                            //rest for now are zero
+                            //the inst comes from reg file at location 8,and x5,x11,x12
+                            //0x00c5f2b3
                             RAM[8]=8'h00;
                             RAM[9]=8'h00;
                             RAM[10]=8'h00;
                             RAM[11]=8'H00;
+                            
+                            //ori x18,x12,11 -I type ALU 0x00b64913
+                            RAM[12]=8'h13;
+                            RAM[13]=8'h69;
+                            RAM[14]=8'hB6;
+                            RAM[15]=8'h00;
+                            //rest for now are zero
                       end
                       
 endmodule

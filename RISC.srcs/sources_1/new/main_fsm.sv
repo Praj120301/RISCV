@@ -1,9 +1,12 @@
 `timescale 1ns / 1ps
+
+
 module main_fsm(input logic clk,
                 input logic reset,
                 input logic [6:0] opcode,
                 output logic pc_reset,
-                output logic pc_write,
+                output logic branch,
+                output logic pc_update,
                 output logic mem_write,
                 output logic ir_write,
                 output logic reg_write,
@@ -15,7 +18,7 @@ module main_fsm(input logic clk,
                 
                 );
                 
-                typedef enum {s_init,s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s_error} state_nums;
+                typedef enum {s_init,s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s_error} state_nums;
                 
                 state_nums state_reg,state_next;
                 //state reg logic
@@ -40,6 +43,7 @@ module main_fsm(input logic clk,
                            7'b0000011:state_next=s3;//goes to mem_adr since load type instr
                            7'b0100011:state_next=s3;//goes to mem_adr for store as well
                            7'b0110011:state_next=s9;//goes to execute r
+                           7'b0010011:state_next=s11;//goes to exec I_alu
                            default:state_next=s_error;
                            endcase
                         s3://mem_adr
@@ -60,9 +64,12 @@ module main_fsm(input logic clk,
                         s8://mem_write
                             state_next=s6;//goes to pc add
                         s9://execute_R 
-                             state_next=s10;
-                           //alu_wb
-                        s10: state_next=s_error;
+                            state_next=s10;
+                           
+                        s10://alu_wb
+                            state_next=s6;
+                        s11://Exec_I_alu
+                            state_next=s10;//goes to alu_wb 
                         default:state_next=state_reg;
                     endcase
                 end
@@ -73,7 +80,8 @@ module main_fsm(input logic clk,
                     s_init:
                        begin
                            pc_reset=1'bx;
-                           pc_write=1'bx;
+//                          pc_write=1'bx;
+                           pc_update=1'bx;
                            mem_write=1'bx;
                            ir_write=1'bx;
                            reg_write=1'bx;
@@ -87,7 +95,8 @@ module main_fsm(input logic clk,
                     s0://reset                                    5-15
                         begin
                             pc_reset=1'b1;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -101,7 +110,8 @@ module main_fsm(input logic clk,
                      s1://fetch1                                 15-25
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b1;   //imp
                             reg_write=1'b0;
@@ -115,7 +125,8 @@ module main_fsm(input logic clk,
                      s2://decode                                 25-35
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -129,7 +140,8 @@ module main_fsm(input logic clk,
                       s3://mem_adr or exec                       35-45
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -143,7 +155,8 @@ module main_fsm(input logic clk,
                        s4://mem read                            45-55
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                           pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -157,7 +170,8 @@ module main_fsm(input logic clk,
                         s5://mem wb                              55-65
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b1;         //imp
@@ -171,7 +185,8 @@ module main_fsm(input logic clk,
                         s6://pc_add                               65-75
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b1;          //imp
+//                           pc_write=1'b1;          //imp
+                            pc_update=1'b1;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -185,7 +200,8 @@ module main_fsm(input logic clk,
                         s7://fetch2                               75-85
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b1;          //imp
+//                            pc_write=1'b1;          //imp,
+                            pc_update=1'b1;
                             mem_write=1'b0;
                             ir_write=1'b1;          //imp
                             reg_write=1'b0;
@@ -199,7 +215,8 @@ module main_fsm(input logic clk,
                         s8://mem write                              //115-125
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b1;           //imp
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -212,7 +229,8 @@ module main_fsm(input logic clk,
                         s9:                            //exec R
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
@@ -222,10 +240,11 @@ module main_fsm(input logic clk,
                             ALUsrcA=2'b10;            //imp
                             ALUsrcB=2'b00;            //imp
                         end
-                        s10:
+                        s10:                           //alu_wb
                         begin
                             pc_reset=1'b0;
-                            pc_write=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b1;           //imp
@@ -235,10 +254,25 @@ module main_fsm(input logic clk,
                             ALUsrcA=2'b10;            
                             ALUsrcB=2'b00;            
                         end
+                        s11:                            //exec i alu
+                        begin
+                            pc_reset=1'b0;
+//                            pc_write=1'b0;
+                            pc_update=1'b0;
+                            mem_write=1'b0;
+                            ir_write=1'b0;
+                            reg_write=1'b0;
+                            alu_op=2'b10;               //imp
+                            adr_src=1'b0;
+                            result_src=2'b00;
+                            ALUsrcA=2'b10;            //imp
+                            ALUsrcB=2'b01;            //imp
+                        end
                         s_error:
                         begin
                             pc_reset=1'bx;
-                            pc_write=1'bx;
+//                            pc_write=1'bx;
+                            pc_update=1'bx;
                             mem_write=1'bx;
                             ir_write=1'bx;
                             reg_write=1'bx;
@@ -254,7 +288,6 @@ module main_fsm(input logic clk,
                 end
 endmodule
 //pc_reset=1'b0;
-//pc_write=1'b0;
 //mem_write=1'b0;
 //ir_write=1'b0;
 //reg_write=1'b0;

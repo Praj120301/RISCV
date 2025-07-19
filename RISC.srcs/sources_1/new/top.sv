@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-/////////////////////////////////////////// ///////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 21.06.2025 20:53:23
-// Design Name: 
-// Module Name: top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////// ////////////////////////////////////////
-
 
 module top(
            input logic clk,
@@ -39,12 +19,14 @@ module top(
            logic [6:0] opcode;//instr
            logic [2:0] funct3;//instr
            logic funt7_5;//instr
+           logic zero;//result
            control_unit control_unit_inst(
                                  .clk(clk),
                                  .reset(reset),
                                  .opcode(opcode),//instr
                                  .funct3(funct3),//instr
                                  .funct7_5(funt7_5),//instr
+                                 .zero(zero),//result
                                  .pc_reset(pc_reset),//control
                                  .pc_write(pc_write),//control
                                  .mem_write(mem_write),//control
@@ -72,7 +54,8 @@ module top(
                                  .ALUsrcA(ALUsrcA),//control
                                  .opcode(opcode), //instr
                                  .funct3(funct3), //instr
-                                 .funct7_5(funt7_5)//instr
+                                 .funct7_5(funt7_5),//instr
+                                 .zero(zero)//result
                             );
            
          
