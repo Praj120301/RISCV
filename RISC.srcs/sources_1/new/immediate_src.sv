@@ -26,7 +26,8 @@ module immediate_src(input logic [6:0] opcode,
                      case(opcode)
                         7'b0000011:immsrc=2'b00;//I type (load)
                         7'b0010011:immsrc=2'b00;//I type ALU
-                        7'b0100011:immsrc=2'b01;//S type (store)
+                        7'b0100011:immsrc=2'b01;//S type (store).
+                        7'b1100011:immsrc=2'b10;//B type
                         default:immsrc=2'bxx;
                      endcase
                      end

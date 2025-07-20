@@ -18,7 +18,7 @@ module main_fsm(input logic clk,
                 
                 );
                 
-                typedef enum {s_init,s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s_error} state_nums;
+                typedef enum {s_init,s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s_error} state_nums;
                 
                 state_nums state_reg,state_next;
                 //state reg logic
@@ -44,6 +44,7 @@ module main_fsm(input logic clk,
                            7'b0100011:state_next=s3;//goes to mem_adr for store as well
                            7'b0110011:state_next=s9;//goes to execute r
                            7'b0010011:state_next=s11;//goes to exec I_alu
+                           7'b1100011:state_next=s12;
                            default:state_next=s_error;
                            endcase
                         s3://mem_adr
@@ -70,6 +71,8 @@ module main_fsm(input logic clk,
                             state_next=s6;
                         s11://Exec_I_alu
                             state_next=s10;//goes to alu_wb 
+                        s12://branch
+                            state_next=s6;//goes to pc add
                         default:state_next=state_reg;
                     endcase
                 end
@@ -79,22 +82,24 @@ module main_fsm(input logic clk,
                     case(state_reg)
                     s_init:
                        begin
-                           pc_reset=1'bx;
+                           pc_reset=1'b0;
+                           branch=1'b0;
 //                          pc_write=1'bx;
-                           pc_update=1'bx;
-                           mem_write=1'bx;
-                           ir_write=1'bx;
-                           reg_write=1'bx;
-                           alu_op=2'bxx;
-                           adr_src=1'bx;
-                           result_src=2'bxx;
-                           ALUsrcA=2'bxx;
-                           ALUsrcB=2'bxx;
+                           pc_update=1'b0;
+                           mem_write=1'b0;
+                           ir_write=1'b0;
+                           reg_write=1'b0;
+                           alu_op=2'b00;
+                           adr_src=1'b0;
+                           result_src=2'b00;
+                           ALUsrcA=2'b00;
+                           ALUsrcB=2'b00;
                             
                        end
                     s0://reset                                    5-15
                         begin
                             pc_reset=1'b1;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -110,6 +115,7 @@ module main_fsm(input logic clk,
                      s1://fetch1                                 15-25
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -125,21 +131,23 @@ module main_fsm(input logic clk,
                      s2://decode                                 25-35
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
                             ir_write=1'b0;
                             reg_write=1'b0;
-                            alu_op=2'bxx;
+                            alu_op=2'b00;
                             adr_src=1'b0;
                             result_src=2'b00;
                             ALUsrcA=2'b00;
-                            ALUsrcB=2'b00;
+                            ALUsrcB=2'b01;
 //                              
                         end
                       s3://mem_adr or exec                       35-45
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -155,6 +163,7 @@ module main_fsm(input logic clk,
                        s4://mem read                            45-55
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                           pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -170,6 +179,7 @@ module main_fsm(input logic clk,
                         s5://mem wb                              55-65
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -185,6 +195,7 @@ module main_fsm(input logic clk,
                         s6://pc_add                               65-75
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                           pc_write=1'b1;          //imp
                             pc_update=1'b1;
                             mem_write=1'b0;
@@ -200,6 +211,7 @@ module main_fsm(input logic clk,
                         s7://fetch2                               75-85
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b1;          //imp,
                             pc_update=1'b1;
                             mem_write=1'b0;
@@ -215,6 +227,7 @@ module main_fsm(input logic clk,
                         s8://mem write                              //115-125
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b1;           //imp
@@ -229,6 +242,7 @@ module main_fsm(input logic clk,
                         s9:                            //exec R
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -243,6 +257,7 @@ module main_fsm(input logic clk,
                         s10:                           //alu_wb
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -257,6 +272,7 @@ module main_fsm(input logic clk,
                         s11:                            //exec i alu
                         begin
                             pc_reset=1'b0;
+                            branch=1'b0;
 //                            pc_write=1'b0;
                             pc_update=1'b0;
                             mem_write=1'b0;
@@ -268,9 +284,26 @@ module main_fsm(input logic clk,
                             ALUsrcA=2'b10;            //imp
                             ALUsrcB=2'b01;            //imp
                         end
+                        s12:                          //branch
+                        begin
+                           pc_reset=1'bx;
+                           branch=1'b1;                  //imp
+    //                            pc_write=1'bx;
+                           pc_update=1'bx;
+                            mem_write=1'bx;
+                            ir_write=1'bx;
+                            reg_write=1'bx;
+                            alu_op=2'b01;               //imp
+                            adr_src=1'bx;
+                            result_src=2'b00;           //imp
+                            ALUsrcA=2'b10;              //imp
+                            ALUsrcB=2'b00;              //imp
+                        end
+                            
                         s_error:
                         begin
                             pc_reset=1'bx;
+                            branch=1'b0;
 //                            pc_write=1'bx;
                             pc_update=1'bx;
                             mem_write=1'bx;
@@ -283,7 +316,21 @@ module main_fsm(input logic clk,
                             ALUsrcB=2'bxx;
 //                            
                         end
-                        
+                        default:
+                        begin
+                            pc_reset=1'bx;
+//                            pc_write=1'bx;
+                           branch=1'b0;
+                           pc_update=1'bx;
+                           mem_write=1'bx;
+                           ir_write=1'bx;
+                           reg_write=1'bx;
+                           alu_op=2'bxx;
+                           adr_src=1'bx;
+                           result_src=2'bxx;
+                           ALUsrcA=2'bxx;
+                           ALUsrcB=2'bxx;
+                        end
                     endcase
                 end
 endmodule

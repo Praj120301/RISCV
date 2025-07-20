@@ -33,7 +33,7 @@ module top_tb();
     always #5 clk=~clk;     
     
     initial begin
-        #225;
+        #285;
         $finish;
     end
     

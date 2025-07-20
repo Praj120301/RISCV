@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 18.05.2025 14:52:32
-// Design Name: 
-// Module Name: instr_data_mem
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module instr_data_mem(input logic clk,
                       input logic we,
@@ -70,6 +50,12 @@ module instr_data_mem(input logic clk,
                             RAM[13]=8'h69;
                             RAM[14]=8'hB6;
                             RAM[15]=8'h00;
+                            
+                            //beq x15,x18,-12 -B type ALU 0xFF278AE3
+                            RAM[16]=8'HE3;
+                            RAM[17]=8'H8A;
+                            RAM[18]=8'H27;
+                            RAM[19]=8'HFF;
                             //rest for now are zero
                       end
                       
